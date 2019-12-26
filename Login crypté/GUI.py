@@ -34,8 +34,6 @@ def verify():
 
 
 def signingUp():
-    global account
-
     func = lambda: account.set("Selected Account: None")
 
     userName = user.get()

@@ -1,5 +1,6 @@
 from tkinter import *
-import os, hashlib
+from os.path import isfile
+from hashlib import sha384
 
 
 def verify():
@@ -16,8 +17,8 @@ def verify():
     userName = user.get()
     passWord = password.get()
 
-    eUserName = hashlib.sha384(userName.encode('UTF-8'))
-    ePassWord = hashlib.sha384(passWord.encode('UTF-8'))
+    eUserName = sha384(userName.encode('UTF-8'))
+    ePassWord = sha384(passWord.encode('UTF-8'))
 
     eUserName = eUserName.hexdigest()
     ePassWord = ePassWord.hexdigest()
@@ -51,8 +52,8 @@ def signingUp():
         return None
         
     else:
-        eUserName = hashlib.sha384(userName.encode('UTF-8'))
-        ePassWord = hashlib.sha384(passWord.encode('UTF-8'))
+        eUserName = sha384(userName.encode('UTF-8'))
+        ePassWord = sha384(passWord.encode('UTF-8'))
 
         eUserName = eUserName.hexdigest()
         ePassWord = ePassWord.hexdigest()
@@ -65,10 +66,10 @@ def signingUp():
 
 
 if __name__ == "__main__":
-    if not os.path.isfile("passwords.txt"):
+    if not isfile("passwords.txt"):
         file = open("passwords.txt", "w+")
         file.close()
-    if not os.path.isfile("users.txt"):
+    if not isfile("users.txt"):
         file = open("users.txt", "w+")
         file.close()
 

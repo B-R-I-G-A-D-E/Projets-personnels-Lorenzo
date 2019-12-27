@@ -24,7 +24,7 @@ def verify():
     ePassWord = ePassWord.hexdigest()
 
     for a, b in zip(userNames, passWords):
-        if F"{eUserName}\n" == a and F"{ePassWord}\n" == b:
+        if eUserName == a.strip() and ePassWord == b.strip():
             account.set("Access Granted!")
             root.after(2000, func2)
             return None
@@ -56,11 +56,21 @@ def signingUp():
         eUserName = eUserName.hexdigest()
         ePassWord = ePassWord.hexdigest()
 
+        with open("users.txt", 'r') as file:
+            for users in file.readlines():
+                if users.strip() == eUserName:
+                    account.set("User already exists!")
+                    root.after(2000, func)
+                    return None
+
         with open("users.txt", 'a') as file:
             file.write(F"{eUserName}\n")
         
         with open("passwords.txt", 'a') as file:
             file.write(F"{ePassWord}\n")
+        
+        account.set("Account Created!")
+        root.after(2000, func)
 
 
 if __name__ == "__main__":
